@@ -1,1 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Format Laporan Shift</title>
 
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #f7f7f7;
+      }
+      .container-box {
+        max-width: 850px;
+      }
+      #output {
+        font-family: Consolas, monospace;
+        white-space: pre-wrap;
+      }
+      .bullet-area {
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container container-box bg-white p-4 mt-4 rounded shadow">
+      <h3 class="text-center mb-4">Form Laporan Shift - Auto Format</h3>
+
+      <!-- SHIFT -->
+      <div class="mb-3">
+        <label class="form-label">Shift</label>
+        <select id="shift" class="form-select">
+          <option value="SHIFT 1">SHIFT 1</option>
+          <option value="SHIFT 2">SHIFT 2</option>
+          <option value="SHIFT 3">SHIFT 3</option>
+        </select>
+      </div>
+
+      <!-- TANGGAL -->
+      <div class="mb-3">
+        <label class="form-label">Tanggal</label>
+        <input type="date" id="tanggal" class="form-control" />
+      </div>
+
+      <!-- GROUP -->
+      <div class="mb-3">
+        <label class="form-label">Group</label>
+        <select id="group" class="form-select">
+          <option value="GROUP A">GROUP A</option>
+          <option value="GROUP B">GROUP B</option>
+          <option value="GROUP C" selected>GROUP C</option>
+          <option value="GROUP D">GROUP D</option>
+        </select>
+      </div>
+
+      <!-- KEHADIRAN -->
+      <h5 class="fw-bold mt-4">Kehadiran:</h5>
+
+      <div class="mb-2">
+        <label class="form-label">Suptend (orang)</label>
+        <input type="number" id="suptend" value="0" class="form-control" />
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Koordinator (orang)</label>
+        <input type="number" id="koordinator" value="0" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Operator (orang)</label>
+        <input type="number" id="operator" value="0" class="form-control" />
+      </div>
+
+      <!-- KEGIATAN -->
+      <div class="mb-3">
+        <label class="form-label">Kegiatan Lapangan</label>
+        <textarea
+          id="kegiatan"
+          class="form-control bullet-area"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- STATUS OPERASIONAL -->
+      <h5 class="fw-bold mt-4">Status Operasional Peralatan:</h5>
+
+      <div class="mb-3">
+        <label class="form-label">1. Control Filtration</label>
+        <textarea
+          id="control"
+          class="form-control bullet-area"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">2. Heat Interchange</label>
+        <textarea
+          id="heat"
+          class="form-control bullet-area"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">3. Fine Seed Filtration</label>
+        <textarea
+          id="fine"
+          class="form-control bullet-area"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">4. Hydrate Filtration</label>
+        <textarea
+          id="hydrate"
+          class="form-control bullet-area"
+          rows="2"
+        ></textarea>
+      </div>
+
+      <!-- TRANSFER JOB -->
+      <div class="mb-3">
+        <label class="form-label">Transfer Job</label>
+        <textarea
+          id="transfer"
+          class="form-control bullet-area"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- TOTALIZER -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Totalizer</label>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Lime Milk</div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              id="tot_limemilk"
+              value="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">GL Growth</div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              id="tot_gl_growth"
+              value="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Fine Seed Aglo</div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              id="tot_fine_seed"
+              value="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Coarse Seed</div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              id="tot_coarse"
+              value="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Air Cooling Tower</div>
+          <div class="col-md-3">
+            <input type="number" id="tot_air" value="0" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <!-- PERALATAN RUNNING -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Peralatan Running</label>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Sewage A (menit)</div>
+          <div class="col-md-3">
+            <input type="number" id="sewA" value="0" class="form-control" />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Sewage B (menit)</div>
+          <div class="col-md-3">
+            <input type="number" id="sewB" value="0" class="form-control" />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Sewage C (menit)</div>
+          <div class="col-md-3">
+            <input type="number" id="sewC" value="0" class="form-control" />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Filter Cake (menit)</div>
+          <div class="col-md-3">
+            <input
+              type="number"
+              id="filterCake"
+              value="0"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-md-4">Overflow (menit)</div>
+          <div class="col-md-3">
+            <input type="number" id="overflow" value="0" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+      <button class="btn btn-primary w-100 mt-3" onclick="generateReport()">
+        Buat Laporan
+      </button>
+
+      <button class="btn btn-success w-100 mt-2" id="waBtn">
+        Kirim ke WhatsApp
+      </button>
+
+      <button class="btn btn-danger w-100 mt-2" onclick="resetData()">
+        Reset Data Tersimpan
+      </button>
+
+      <div id="output" class="mt-4 p-3 rounded bg-light border"></div>
+    </div>
+
+    <script>
+      // AUTO BULLET
+      document.querySelectorAll(".bullet-area").forEach((area) => {
+        area.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const bullet = "• ";
+            this.value =
+              this.value.substring(0, start) +
+              "\n" +
+              bullet +
+              this.value.substring(end);
+            this.selectionStart = this.selectionEnd = start + bullet.length + 1;
+          }
+        });
+
+        area.addEventListener("input", function () {
+          if (this.value.trim() !== "" && !this.value.startsWith("• "))
+            this.value = "• " + this.value;
+        });
+      });
+
+      // GENERATE REPORT
+      function generateReport() {
+        const shift = document.getElementById("shift").value;
+        const tanggal = document.getElementById("tanggal").value;
+        const group = document.getElementById("group").value;
+
+        const suptend = document.getElementById("suptend").value;
+        const koordinator = document.getElementById("koordinator").value;
+        const operator = document.getElementById("operator").value;
+        const totalHadir =
+          Number(suptend) + Number(koordinator) + Number(operator);
+
+        const kegiatan = cleanText(document.getElementById("kegiatan").value);
+        const control = cleanText(document.getElementById("control").value);
+        const heat = cleanText(document.getElementById("heat").value);
+        const fine = cleanText(document.getElementById("fine").value);
+        const hydrate = cleanText(document.getElementById("hydrate").value);
+        const transfer = cleanText(document.getElementById("transfer").value);
+
+        const sewA = document.getElementById("sewA").value;
+        const sewB = document.getElementById("sewB").value;
+        const sewC = document.getElementById("sewC").value;
+        const filterCake = document.getElementById("filterCake").value;
+        const overflow = document.getElementById("overflow").value;
+
+        const tot_limemilk = document.getElementById("tot_limemilk").value;
+        const tot_gl_growth = document.getElementById("tot_gl_growth").value;
+        const tot_fine_seed = document.getElementById("tot_fine_seed").value;
+        const tot_coarse = document.getElementById("tot_coarse").value;
+        const tot_air = document.getElementById("tot_air").value;
+
+        const formatted = `*LAPORAN ${shift} - ${group}*
+${formatDate(tanggal)}
+2P07 - Integrated Filtration
+
+*Kehadiran:*
+• Suptend       : ${suptend} orang
+• Koordinator   : ${koordinator} orang
+• Operator      : ${operator} orang
+• *Total Hadir  : ${totalHadir} orang*
+
+*Kegiatan Lapangan:*
+${kegiatan}
+
+*Status Operasional Peralatan:*
+
+*Control Filtration*
+${control}
+
+*Heat Interchange*
+${heat}
+
+*Fine Seed Filtration*
+${fine}
+
+*Hydrate Filtration*
+${hydrate}
+
+*Transfer Job:*
+${transfer}
+
+*Totalizer:*
+• Lime Milk(m³) : ${tot_limemilk}m³
+• GL Growth(m³) : ${tot_gl_growth}m³
+• Fine Seed Aglo(m³) : ${tot_fine_seed}m³
+• Coarse Seed(m³) : ${tot_coarse}m³
+• Air Cooling Tower : ${tot_air}m³
+
+*Peralatan Running:*
+• Sewage A    : ${sewA} menit
+• Sewage B    : ${sewB} menit
+• Sewage C    : ${sewC} menit
+• Filter Cake : ${filterCake} menit
+• Overflow    : ${overflow} menit
+`;
+
+        document.getElementById("output").textContent = formatted;
+      }
+
+      function cleanText(txt) {
+        return txt
+          .replace(/\n\s*\n/g, "\n")
+          .replace(/^\s+/, "")
+          .trim();
+      }
+
+      function formatDate(dateStr) {
+        const months = [
+          "Januari",
+          "Februari",
+          "Maret",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Agustus",
+          "September",
+          "Oktober",
+          "November",
+          "Desember",
+        ];
+        const d = new Date(dateStr);
+        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+      }
+
+      // kirim ke wa
+      document.getElementById("waBtn").onclick = function () {
+        const laporan = document.getElementById("output").textContent;
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(laporan)}`,
+          "_blank"
+        );
+      };
+
+      const fields = [
+        "shift",
+        "tanggal",
+        "group",
+        "suptend",
+        "koordinator",
+        "operator",
+        "kegiatan",
+        "control",
+        "heat",
+        "fine",
+        "hydrate",
+        "transfer",
+        "tot_limemilk",
+        "tot_gl_growth",
+        "tot_fine_seed",
+        "tot_coarse",
+        "tot_air",
+        "sewA",
+        "sewB",
+        "sewC",
+        "filterCake",
+        "overflow",
+      ];
+
+      // Muat data tersimpan saat halaman dibuka
+      window.onload = function () {
+        fields.forEach((id) => {
+          const saved = localStorage.getItem(id);
+          if (saved !== null) {
+            document.getElementById(id).value = saved;
+          }
+        });
+      };
+
+      // Simpan perubahan otomatis
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", () => {
+          localStorage.setItem(id, el.value);
+        });
+      });
+
+      // Reset data
+      function resetData() {
+        if (confirm("Hapus semua data tersimpan?")) {
+          localStorage.clear();
+          location.reload();
+        }
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
